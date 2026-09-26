@@ -169,6 +169,45 @@
 @utility menu-row { transition: padding-left 180ms ease; &:hover { padding-left: 0.6rem; } }
 @utility menu-badge { background: var(--color-accent); color: var(--color-accent-foreground); padding: 0.15rem 0.45rem; font-size: 0.6rem; font-weight: 900; text-transform: uppercase; }
 
+@utility store-panel {
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-card);
+  padding: 1.5rem;
+  box-shadow: 7px 7px 0 color-mix(in oklab, var(--color-primary) 16%, transparent);
+}
+
+@utility store-panel-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--color-primary);
+  & svg { width: 1.5rem; height: 1.5rem; }
+  & h3 { font-size: 1rem; font-weight: 900; text-transform: uppercase; }
+}
+
+@utility store-list {
+  margin-top: 1rem;
+  & > div, & > li { display: flex; justify-content: space-between; gap: 1rem; border-bottom: 1px solid var(--color-border); padding: 0.85rem 0; font-size: 0.875rem; }
+  & dt, & li > span { color: var(--color-muted-foreground); }
+  & dd, & li > strong { text-align: right; font-weight: 800; }
+}
+
+@utility contact-link {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.375rem;
+  padding: 0.8rem;
+  transition: border-color 180ms ease, transform 180ms ease;
+  &:hover { transform: translateY(-2px); border-color: var(--color-primary); }
+  & svg { width: 1.35rem; height: 1.35rem; flex: none; color: var(--color-primary); }
+  & span { min-width: 0; overflow-wrap: anywhere; font-size: 0.75rem; font-weight: 800; }
+  & small { display: block; margin-bottom: 0.15rem; color: var(--color-muted-foreground); font-size: 0.62rem; font-weight: 900; text-transform: uppercase; }
+}
+
 @utility mobile-menu-button {
   position: fixed;
   left: 50%;
