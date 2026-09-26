@@ -1,14 +1,16 @@
-# Welcome to your Lovable project
+# Sabor & Design
+
+Crie um site para esse restaurante. Em anexo está o cardápio, o flyer para inspirar o design (sinta-se livre para melhorar) e a logo do restaurante.
 
 This project was built with [Lovable](https://lovable.dev).
 
 ## Build with Lovable
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+Continue developing this project in the [Lovable editor](https://lovable.dev/projects/f333d8c0-eeb9-4874-ab0f-ebd4a8479c25).
 
 - **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+- **Stay in sync**: every change made in Lovable is committed straight to this repository.
+- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
 
 ## Development
 
@@ -20,10 +22,3 @@ cd <repository-name>
 npm i
 npm run dev
 ```
-
-## Built with
-
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
