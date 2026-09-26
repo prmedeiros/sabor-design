@@ -158,7 +158,7 @@ function RestaurantPage() {
         <div className="relative z-10 mx-auto grid max-w-6xl items-center gap-10 px-5 py-14 md:grid-cols-[0.9fr_1.1fr] md:py-20">
           <div>
             <span className="tilted-label">Aberto a partir das 18h</span>
-            <h1 className="mt-6 font-display text-7xl uppercase leading-[0.82] sm:text-8xl lg:text-[7rem]">
+            <h1 className="mt-6 font-display text-6xl uppercase leading-[0.86] sm:text-8xl lg:text-[7rem]">
               Fome de <span className="text-accent">verdade?</span>
             </h1>
             <p className="mt-6 max-w-lg text-lg font-semibold leading-relaxed text-primary-foreground/85 md:text-xl">
