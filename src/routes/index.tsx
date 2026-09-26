@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Clock3, CreditCard, MapPin, ShoppingBag, Store, Zap } from "lucide-react";
+import { Banknote, Clock3, CreditCard, Instagram, MapPin, MessageCircle, ShoppingBag, Store, Zap } from "lucide-react";
 
 import logoAsset from "@/assets/aj-logo.png.asset.json";
 import heroBurger from "@/assets/aj-hero-burger.jpg";
@@ -149,6 +149,7 @@ function RestaurantPage() {
             <a className="nav-link" href="#hotdogs">Hot dogs</a>
             <a className="nav-link" href="#porcoes">Porções</a>
             <a className="nav-link" href="#bebidas">Bebidas</a>
+            <a className="nav-link" href="#loja">A loja</a>
           </nav>
           <a href="#cardapio" className="cta-button">Ver cardápio</a>
         </div>
@@ -184,7 +185,7 @@ function RestaurantPage() {
 
       <section className="bg-foreground text-background">
         <div className="mx-auto grid max-w-6xl gap-6 px-5 py-7 sm:grid-cols-3">
-          <div className="info-chip"><Clock3 /><div><strong>Funcionamento</strong><span>A partir das 18h</span></div></div>
+          <div className="info-chip"><Clock3 /><div><strong>Funcionamento</strong><span>Terça a domingo, 18h–23h45</span></div></div>
           <div className="info-chip"><Store /><div><strong>Atendimento</strong><span>Loja física e delivery</span></div></div>
           <div className="info-chip"><CreditCard /><div><strong>Pagamento online</strong><span>Chave Pix ou cartão</span></div></div>
         </div>
@@ -221,17 +222,57 @@ function RestaurantPage() {
         <MenuSection id="bebidas" eyebrow="Geladas para completar" title="Bebidas" items={drinks} tone="dark" />
       </div>
 
+      <section id="loja" className="scroll-mt-20 bg-secondary">
+        <div className="mx-auto max-w-6xl px-5 py-16 md:py-24">
+          <div className="mb-10">
+            <p className="section-kicker text-primary">Delivery e loja física</p>
+            <h2 className="font-display text-5xl uppercase leading-none text-primary sm:text-6xl md:text-7xl">Peça do seu jeito</h2>
+          </div>
+
+          <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+            <div className="store-panel">
+              <div className="store-panel-heading"><Clock3 /><h3>Horário de atendimento</h3></div>
+              <dl className="store-list">
+                <div><dt>Segunda-feira</dt><dd>Fechado</dd></div>
+                <div><dt>Terça a domingo</dt><dd>18h às 23h45</dd></div>
+              </dl>
+
+              <div className="store-panel-heading mt-8"><CreditCard /><h3>Formas de pagamento</h3></div>
+              <ul className="store-list" aria-label="Formas de pagamento aceitas">
+                <li><span>Online</span><strong>Pix, Nubank e cartão de crédito</strong></li>
+                <li><span>Na entrega</span><strong>Dinheiro e cartão de crédito</strong></li>
+              </ul>
+              <p className="mt-5 flex items-center gap-2 text-sm font-bold text-primary"><Banknote className="size-5" /> Pedido mínimo: R$ 6,00</p>
+            </div>
+
+            <div className="store-panel">
+              <div className="store-panel-heading"><MapPin /><h3>Onde estamos</h3></div>
+              <p className="mt-5 text-lg font-bold leading-relaxed">Rua Heitor Levi, 10 — Sete Pontes<br />São Gonçalo — RJ, CEP 24412-300</p>
+              <a className="cta-button mt-6" href="https://www.google.com/maps/search/?api=1&query=Rua+Heitor+Levi%2C+10%2C+Sete+Pontes%2C+Sao+Goncalo%2C+RJ%2C+24412-300" target="_blank" rel="noreferrer"><MapPin className="size-4" /> Abrir no mapa</a>
+
+              <div className="mt-10 border-t border-border pt-7">
+                <p className="section-kicker text-primary">Fale com a gente</p>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <a className="contact-link" href="https://wa.me/5521983179620" target="_blank" rel="noreferrer"><MessageCircle /><span><small>WhatsApp</small>(21) 98317-9620</span></a>
+                  <a className="contact-link" href="https://www.instagram.com/ajhamburgueriapizzaria/" target="_blank" rel="noreferrer"><Instagram /><span><small>Instagram</small>@ajhamburgueriapizzaria</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="bg-accent text-accent-foreground">
         <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 px-5 py-10 sm:flex-row sm:items-center">
           <div><p className="text-xs font-black uppercase">Bateu a fome?</p><h2 className="font-display text-4xl uppercase sm:text-5xl">Escolha seu lanche favorito.</h2></div>
-          <div className="flex items-center gap-3 font-extrabold uppercase"><MapPin className="size-6" /><span>Loja física e delivery</span></div>
+           <a href="https://wa.me/5521983179620" target="_blank" rel="noreferrer" className="flex items-center gap-3 font-extrabold uppercase"><MessageCircle className="size-6" /><span>Peça pelo WhatsApp</span></a>
         </div>
       </section>
 
       <footer className="bg-background">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-5 py-10 text-center sm:flex-row sm:text-left">
           <Logo />
-          <p className="max-w-sm text-sm text-muted-foreground">Cardápio oficial da Hamburgueria AJ. Atendimento em nossa loja física e delivery a partir das 18h.</p>
+          <p className="max-w-sm text-sm text-muted-foreground">Rua Heitor Levi, 10 — Sete Pontes, São Gonçalo. Atendimento de terça a domingo, das 18h às 23h45.</p>
         </div>
       </footer>
 
