@@ -8,6 +8,13 @@
       "when": 1791545396681,
       "tag": "0000_create_product_photo_management",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1791545420168,
+      "tag": "0001_assign_first_owner_role",
+      "breakpoints": true
     }
   ]
 }
