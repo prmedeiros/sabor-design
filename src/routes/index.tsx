@@ -195,6 +195,7 @@ function CartDrawer() {
 }
 
 function RestaurantPage() {
+  const { addItem, itemCount, subtotal } = useCart();
   return (
     <main className="min-h-screen overflow-hidden bg-background font-sans text-foreground">
       <div className="bg-primary px-4 py-2 text-center text-xs font-extrabold uppercase text-primary-foreground">

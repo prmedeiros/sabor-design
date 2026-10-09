@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, Check, ChevronDown, Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
+import { ArrowLeft, Check, ChevronDown, MessageCircle, Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 import { useMemo, useState, type FormEvent } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -110,8 +110,8 @@ function CheckoutPage() {
                   <ChevronDown className="pointer-events-none absolute right-3 top-3 size-5" />
                 </div>
                 <div className="mt-4 rounded-md border border-border bg-muted p-4 text-sm text-muted-foreground">
-                  <strong className="block text-foreground">Pagamento online em breve</strong>
-                  A opção será liberada após a conexão da loja Shopify. Por enquanto, confirme o pedido pelo WhatsApp.
+                  <strong className="flex items-center gap-2 text-foreground"><MessageCircle className="size-4" /> Confirmação pelo WhatsApp</strong>
+                  A loja confirmará a forma de pagamento e a taxa de entrega antes de preparar o pedido.
                 </div>
               </section>
             </div>
