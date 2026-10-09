@@ -1,10 +1,13 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { Banknote, Clock3, CreditCard, Instagram, MapPin, MessageCircle, ShoppingBag, Store, Zap } from "lucide-react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Banknote, Clock3, CreditCard, Instagram, MapPin, MessageCircle, Minus, Plus, ShoppingBag, Store, Trash2, Zap } from "lucide-react";
 
 import logoAsset from "@/assets/aj-logo.png.asset.json";
 import heroBurger from "@/assets/aj-hero-burger.jpg";
 import carroChefeImage from "@/assets/aj-combo-carro-chefe.jpg";
 import terceiraoImage from "@/assets/aj-combo-terceirao.jpg";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { formatCurrency, useCart } from "@/lib/cart";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -28,6 +31,15 @@ export const Route = createFileRoute("/")({
 });
 
 type MenuItem = { name: string; description: string; price: string; badge?: string };
+
+function productFrom(item: MenuItem) {
+  const matchedPrice = item.price.match(/[\d]+(?:[.,]\d{2})?/g)?.at(-1) ?? "0";
+  return {
+    id: item.name.toLocaleLowerCase("pt-BR").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""),
+    name: item.name,
+    price: Number(matchedPrice.replace(".", "").replace(",", ".")),
+  };
+}
 
 const combos = [
   {
@@ -107,6 +119,7 @@ function Logo({ compact = false }: { compact?: boolean }) {
 }
 
 function MenuSection({ id, eyebrow, title, items, tone = "light" }: { id: string; eyebrow: string; title: string; items: MenuItem[]; tone?: "light" | "dark" }) {
+  const { addItem } = useCart();
   return (
     <section id={id} className={tone === "dark" ? "menu-band bg-foreground text-background" : "menu-band bg-background text-foreground"}>
       <div className="mx-auto max-w-6xl px-5 py-16 md:py-24">
@@ -124,7 +137,10 @@ function MenuSection({ id, eyebrow, title, items, tone = "light" }: { id: string
                 </div>
                 <p className={tone === "dark" ? "mt-2 max-w-3xl text-sm leading-relaxed text-background/65" : "mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground"}>{item.description}</p>
               </div>
-              <p className={tone === "dark" ? "font-display text-2xl text-accent sm:text-right" : "font-display text-2xl text-primary sm:text-right"}>{item.price}</p>
+              <div className="flex items-center justify-between gap-3 sm:flex-col sm:items-end">
+                <p className={tone === "dark" ? "font-display text-2xl text-accent sm:text-right" : "font-display text-2xl text-primary sm:text-right"}>{item.price}</p>
+                <Button type="button" variant={tone === "dark" ? "secondary" : "default"} size="sm" onClick={() => addItem(productFrom(item))}><Plus /> Adicionar</Button>
+              </div>
             </article>
           ))}
         </div>
@@ -133,7 +149,53 @@ function MenuSection({ id, eyebrow, title, items, tone = "light" }: { id: string
   );
 }
 
+function CartDrawer() {
+  const { items, itemCount, subtotal, setQuantity, removeItem } = useCart();
+  return (
+    <Sheet>
+      <SheetTrigger asChild>
+        <Button className="relative h-11 bg-accent text-accent-foreground hover:bg-accent/90" aria-label={`Abrir carrinho com ${itemCount} itens`}>
+          <ShoppingBag /> <span className="hidden sm:inline">Carrinho</span>
+          {itemCount > 0 && <span className="cart-count">{itemCount}</span>}
+        </Button>
+      </SheetTrigger>
+      <SheetContent className="flex w-full flex-col sm:max-w-md">
+        <SheetHeader>
+          <SheetTitle className="font-display text-3xl uppercase text-primary">Seu carrinho</SheetTitle>
+          <SheetDescription>Revise os itens antes de concluir.</SheetDescription>
+        </SheetHeader>
+        {items.length === 0 ? (
+          <div className="flex flex-1 flex-col items-center justify-center text-center"><ShoppingBag className="size-10 text-muted-foreground" /><p className="mt-4 font-bold">Seu carrinho está vazio.</p></div>
+        ) : (
+          <>
+            <div className="mt-5 flex-1 overflow-y-auto divide-y divide-border">
+              {items.map((item) => (
+                <div key={item.id} className="py-4">
+                  <div className="flex justify-between gap-4"><strong className="text-sm">{item.name}</strong><span className="text-sm font-black">{formatCurrency(item.price * item.quantity)}</span></div>
+                  <div className="mt-3 flex items-center justify-between">
+                    <div className="quantity-control">
+                      <Button type="button" variant="ghost" size="icon" aria-label={`Diminuir ${item.name}`} onClick={() => setQuantity(item.id, item.quantity - 1)}><Minus /></Button>
+                      <span>{item.quantity}</span>
+                      <Button type="button" variant="ghost" size="icon" aria-label={`Aumentar ${item.name}`} onClick={() => setQuantity(item.id, item.quantity + 1)}><Plus /></Button>
+                    </div>
+                    <Button type="button" variant="ghost" size="icon" aria-label={`Remover ${item.name}`} onClick={() => removeItem(item.id)}><Trash2 /></Button>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="border-t-2 border-foreground pt-5">
+              <div className="flex justify-between text-lg font-black"><span>Subtotal</span><span>{formatCurrency(subtotal)}</span></div>
+              <Button className="mt-4 h-12 w-full bg-accent text-accent-foreground hover:bg-accent/90" asChild><Link to="/checkout">Continuar pedido</Link></Button>
+            </div>
+          </>
+        )}
+      </SheetContent>
+    </Sheet>
+  );
+}
+
 function RestaurantPage() {
+  const { addItem, itemCount, subtotal } = useCart();
   return (
     <main className="min-h-screen overflow-hidden bg-background font-sans text-foreground">
       <div className="bg-primary px-4 py-2 text-center text-xs font-extrabold uppercase text-primary-foreground">
@@ -151,7 +213,7 @@ function RestaurantPage() {
             <a className="nav-link" href="#bebidas">Bebidas</a>
             <a className="nav-link" href="#loja">A loja</a>
           </nav>
-          <a href="#cardapio" className="cta-button">Ver cardápio</a>
+          <CartDrawer />
         </div>
       </header>
 
@@ -207,7 +269,7 @@ function RestaurantPage() {
                 <div className="flex flex-1 flex-col p-5">
                   <h3 className="text-xl font-black uppercase leading-tight">{combo.name}</h3>
                   <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{combo.description}</p>
-                  <p className="mt-5 font-display text-3xl text-primary">{combo.price}</p>
+                  <div className="mt-5 flex items-center justify-between gap-3"><p className="font-display text-3xl text-primary">{combo.price}</p><Button type="button" size="sm" onClick={() => addItem(productFrom(combo))}><Plus /> Adicionar</Button></div>
                 </div>
               </article>
             ))}
@@ -276,7 +338,7 @@ function RestaurantPage() {
         </div>
       </footer>
 
-      <a href="#cardapio" className="mobile-menu-button" aria-label="Abrir cardápio"><ShoppingBag className="size-5" /> Ver cardápio</a>
+      {itemCount > 0 && <Button className="mobile-menu-button" asChild><Link to="/checkout"><ShoppingBag className="size-5" /> Ver carrinho · {formatCurrency(subtotal)}</Link></Button>}
     </main>
   );
 }
