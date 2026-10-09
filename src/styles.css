@@ -293,7 +293,7 @@
   position: fixed;
   left: 50%;
   bottom: 1rem;
-  z-index: 60;
+  z-index: 40;
   display: none;
   transform: translateX(-50%);
   align-items: center;
