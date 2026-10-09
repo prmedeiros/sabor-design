@@ -5,4 +5,4 @@
 - [x] Criar página de compra com entrega, pagamento e observações
 - [x] Finalizar pedido pelo WhatsApp
 - [ ] Validar no celular e computador
-- [ ] Conectar checkout online (bloqueado: Shopify não configurada)
+- [ ] Remover referências à Shopify e manter finalização somente pelo WhatsApp
